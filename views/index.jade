@@ -2,4 +2,16 @@ extends layout
 
 block content
   h1= title
+  h1
+    p
+      a(href="/") newAccount
+    p
+      a(href="/") login
+  form
+    input(type="text" name="지역")
+    input(type="submit" value="검색")
+    p
+      table
+        tr
+          input(type="checkbox" name="date")
   p Welcome to #{title}
