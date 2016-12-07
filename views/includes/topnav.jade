@@ -3,26 +3,25 @@
     .navbar-header
       button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
         span.sr-only Toggle navigation
-        span.icon-bar
+        span.icon-bar 
         span.icon-bar
         span.icon-bar
       a.navbar-brand(href='/') 
-        i.fa.fa-home
+        i.fa.fa-home.fa-lg
+        b Airbnb_like
     #navbar.collapse.navbar-collapse
-      ul.nav.navbar-nav
-        li
-          a(href='/todos') Todo List
-        li
-          a(href='/users') Users
       ul.nav.navbar-nav.navbar-right
         if (currentUser) 
           li
-            a(href='/users/#{currentUser._id}') Profile
+            a(href='/users/#{currentUser._id}')
+              i.fa.fa-cog.fa-lg
           li
-            a(href='/signout') Signout
+            a(href='/signout')
+              i.fa.fa-unlock.fa-lg
         else
           li
-            a(href='/signin') Signin
+            a(href='/users/new')
+              i.fa.fa-plus.fa-lg
           li
-            a(href='/users/new') Signup
-          
+            a(href='/signin')
+              i.fa.fa-key.fa-lg
