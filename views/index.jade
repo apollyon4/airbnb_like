@@ -10,11 +10,23 @@ block content
     .col-xs-6.col-md-4
     .col-xs-6.col-md-
       form
-        .col-md-4
-          input(type='text', placeholder='지역을 입력하세요')
-          input(type='submit', value='검색')
-        .col-md-4
-          input(type='checkbox', name='인원수')
+        div
+          .col-md-4
+            input(type='text', placeholder='지역을 입력하세요')
+          .col-md-4
+            input(type='submit', value='검색')
+          .col-md-6
+            .content
+              input(type='text', placeholder='1명')
+            .content
+              select
+                option(value='a') a
+            .content
+              select
+                option(value='higherthat') ~원 이상
+                option(value='lowerthat') ~원 이하
+                option(value='between') ~원 사이
+                option(value='plusminus') +- ~원
     .col-xs-6.col-md-4
       //- .col-md-6
       //-   h3 서비스 목적
