@@ -8,33 +8,11 @@ block content
   .container
     .col-xs-6.col-md-4
     .col-xs-6.col-md-
-      form
-        div
-          .col-md-4
-            input(type='text', placeholder='지역을 입력하세요')
-          .col-md-4
-            input(type='submit', value='검색', herf="/")
-          .col-md-6
-            .content
-              input(type='text', placeholder='1명')
-            .content
-              select
-                option(value='a') a
-            .content
-              select
-                option(value='higherthat') ~원 이상
-                option(value='lowerthat') ~원 이하
-                option(value='between') ~원 사이
-                option(value='plusminus') +- ~원
+      form#form-task.form-inline(action='/todos', method='POST', class='todos') 가고 싶은곳은:
+        input(type='text', placeholder='지역을 입력하세요')
+        br
+        몇 명이:
+        input(type='text', placeholder='1명')
+        .actions
+            button#post-task.btn.btn-primary.btn-lg.btn-block(type='submit') 검색
     .col-xs-6.col-md-4
-    
-      //- .col-md-6
-      //-   h3 서비스 목적
-      //-   p 본 서비스는 웹프로그래밍 수업을 위해서 sample로 만들어보는 것입니다. 
-      //- .col-md-6
-      //-   h3 주요 기능
-      //-   ul
-      //-     li 사용자 관리
-      //-     li 할 일 기록
-      //-     li 기록 내용: 분류, 내용, 중요도, deadline
-      //-     li 완료된 일 체크
