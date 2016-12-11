@@ -63,7 +63,7 @@ a {
 
 .jumbotron {
   margin-top: -1em;
-  background: url("/images/home_bg.jpg") no-repeat top;
+  background: url("/images/home_bg.jpg") no-repeat left top;
   -webkit-background-size: 100%;
   -moz-background-size: 100%;
   -o-background-size: 100%;
