@@ -1,6 +1,6 @@
 var express = require('express'),
     Host = require('../models/Host'),
-    User = require('../models/User');
+    User = require('../models/Host');
 var router = express.Router();
 
 function needAuth(req, res, next) {
@@ -30,7 +30,13 @@ function validateForm(form) {
 }
 
 /* GET users listing. */
-router.get('/', needAuth, function(req, res, next) {
+router.post('/', needAuth, function(req, res, next) {
+  var err = validateForm(req.body);
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
   Host.find({}, function(err, hosts) {
     if (err) {
       return next(err);
@@ -40,7 +46,7 @@ router.get('/', needAuth, function(req, res, next) {
 });
 
 router.get('/new', function(req, res, next) {
-  res.render('users/new', {messages: req.flash()});
+  res.render('hosts/new', {messages: req.flash()});
 });
 
 router.get('/:id/edit', function(req, res, next) {
@@ -107,16 +113,5 @@ router.get('/:id', function(req, res, next) {
     res.render('users/show', {user: user});
   });
 });
-
-router.post('/', function(req, res, next) {
-  var err = validateForm(req.body);
-  if (err) {
-    req.flash('danger', err);
-    return res.redirect('back');
-  }
-  // req.body로 부터 얻은 지역, 인원수 등의 정보를 가지고 검색한 결과 리스트를 보여준다.
-  return res.redirect('hosts/index');
-});
-
 
 module.exports = router;

@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
   .container
@@ -22,6 +22,6 @@ block content
               a.btn.btn-xs.btn-default(href='/users/#{user._id}/edit') 예약
               | 
               a.btn.btn-xs.btn-default(href='/users/#{user._id}?_method=DELETE') 정보
-    a.btn.btn-primary(href='/users/new') 호스팅하기
+    a.btn.btn-primary(href='/hosts/new') 호스팅하기
     
  //'100원' 자리에 들어갔던 부분 = moment(user.createdAt).format('YYYY-MM-DD HH:mm:ss')

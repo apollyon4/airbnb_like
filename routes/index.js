@@ -8,16 +8,6 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.post('/', function(req, res, next) {
-  if (!req.session.user){
-    req.flash('danger', '로그인이 필요합니다.');
-    res.render('index');
-  } else {
-    res.render('list');
-  }
-});
-
-
 router.get('/signin', function(req, res, next) {
   res.render('signin');
 });
