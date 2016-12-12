@@ -36,7 +36,7 @@ function validateForm(form) {
 
 /* GET users listing. */
 router.post('/', needAuth, function(req, res, next) {
-  area = req.body.area.trim();
+  var area = req.body.area.trim();
   // 조건에 맞는 목록을 찾아서 전달해준다.
   Host.find({}, function(err, hosts) {
     if (err) {
@@ -46,7 +46,7 @@ router.post('/', needAuth, function(req, res, next) {
   });
 });
 
-router.post('/title', function(req, res, next) {
+router.post('/new', function(req, res, next) {
   var err = validateForm(req.body);
   if (err) {
     req.flash('danger', err);
@@ -73,16 +73,20 @@ router.post('/title', function(req, res, next) {
   });
 });
 
+router.post('/reserv', function(req, res, next) {
+  
+});
+
 router.get('/new', function(req, res, next) {
   res.render('hosts/new', {messages: req.flash()});
 });
 
-router.get('/:id/edit', function(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
+router.get('/:id/reserv', function(req, res, next) {
+  Host.findById(req.params.id, function(err, host) {
     if (err) {
       return next(err);
     }
-    res.render('users/edit', {user: user});
+    res.render('hosts/reserv', {host: host});
   });
 });
 
