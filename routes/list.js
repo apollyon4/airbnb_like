@@ -1,6 +1,6 @@
 var express = require('express'),
     Host = require('../models/Host'),
-    User = require('../models/Host');
+    User = require('../models/User');
 var router = express.Router();
 
 function needAuth(req, res, next) {
@@ -13,35 +13,63 @@ function needAuth(req, res, next) {
 }
 
 function validateForm(form) {
-  var area = form.area || "";
-  var people = form.people || "1";
-  area = area.trim();
-  people = people.trim();
+  var title = form.title || "";
+  var simpleInfo = form.simpleInfo || "";
+  var city = form.city || "";
+  var address = form.address || "";
+  var cost = form.cost || "";
+  var useful = form.useful || "";
+  var rule = form.rule || "";
 
-  if (!area) {
-    return '지역을 입력해주세요.';
-  }
+  title = title.trim();
+  city = city.trim();
+  address = address.trim();
 
-  if (!people) {
-    return '사람 수를 입력해주세요.';
-  }
+  if (!title) { return '제목을 입력해주세요.'; }
+  if (!simpleInfo) { return '설명을 입력해주세요.'; }
+  if (!city) { return '도시를 입력해주세요.'; }
+  if (!address) { return '주소를 입력해주세요.'; }
+  if (!cost) { return '가격을 입력해주세요.'; }
 
   return null;
 }
 
 /* GET users listing. */
 router.post('/', needAuth, function(req, res, next) {
-  var err = validateForm(req.body);
-  if (err) {
-    req.flash('danger', err);
-    return res.redirect('back');
-  }
-
+  area = req.body.area.trim();
+  // 조건에 맞는 목록을 찾아서 전달해준다.
   Host.find({}, function(err, hosts) {
     if (err) {
       return next(err);
     }
     res.render('hosts/index', {hosts: hosts});
+  });
+});
+
+router.post('/title', function(req, res, next) {
+  var err = validateForm(req.body);
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+  var newHosting = new Host({
+      title: req.body.title,
+      hostName: req.session.user.name,
+      simpleInfo: req.body.simpleInfo,
+      city: req.body.city,
+      address: req.body.address,
+      cost: req.body.cost,
+      useful: req.body.useful,
+      rule: req.body.rule,
+  });
+
+  newHosting.save(function(err) {
+    if (err) {
+      return next(err);
+    } else {
+      req.flash('success', '호스팅이 완료되었습니다.');
+      res.redirect('/');
+    }
   });
 });
 
@@ -96,7 +124,7 @@ router.put('/:id', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-  User.findOneAndRemove({_id: req.params.id}, function(err) {
+  Host.findOneAndRemove({_id: req.params.id}, function(err) {
     if (err) {
       return next(err);
     }
