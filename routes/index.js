@@ -8,6 +8,16 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+router.post('/', function(req, res, next) {
+  if (!req.session.user){
+    req.flash('danger', '로그인이 필요합니다.');
+    res.render('index');
+  } else {
+    res.render('list');
+  }
+});
+
+
 router.get('/signin', function(req, res, next) {
   res.render('signin');
 });
@@ -25,7 +35,7 @@ router.post('/signin', function(req, res, next) {
     } else {
       req.session.user = user;
       req.flash('success', '로그인 되었습니다.');
-      res.redirect('/list');
+      res.redirect('/');
     }
   });
 });
