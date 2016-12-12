@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .container
+    h1.page-header 여행 정보
+    
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th 제목
+          th 도시
+          th 요금
+          th
+      tbody
+        each host in hosts
+          tr
+            td
+              a(href='/users/#{user._id}')= user.name
+            td= user.email
+            td 100원
+            td
+              a.btn.btn-xs.btn-default(href='/users/#{user._id}/edit') 예약
+              | 
+              a.btn.btn-xs.btn-default(href='/users/#{user._id}?_method=DELETE') 정보
+    a.btn.btn-primary(href='/users/new') 호스팅하기
+    
+ //'100원' 자리에 들어갔던 부분 = moment(user.createdAt).format('YYYY-MM-DD HH:mm:ss')

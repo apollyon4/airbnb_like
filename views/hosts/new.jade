@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  .container
+    h1.page-header 호스팅하기
+    form(action='/list', method='POST')
+      .form-group
+        label(for='title') Title
+        input.form-control(type='text', id='title', name='title', placeholder='Title')
+      .form-group
+        label(for='simpleInfo') Simple Infomation
+        input.form-control(type='text', id='simpleInfo', name='simpleInfo', placeholder='simpleInfo')
+      .form-group
+        label(for='city') City
+        input.form-control(type='text', id='city', name='city', placeholder='City')
+      .form-group
+        label(for='address') Address
+        input.form-control(type='text', id='address', name='address', placeholder='Address')
+      .form-group
+        label(for='cost') Cost
+        input.form-control(type='text', id='cost', name='cost', placeholder='Cost')
+      .form-group
+        label(for='useful') Useful
+        input.form-control(type='text', id='useful', name='useful', placeholder='Useful')
+      .form-group
+        label(for='rule') Rule
+        input.form-control(type='text', id='rule', name='rule', placeholder='Rule')
+      div.form-actions
+        a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
+        | 
+        button.btn.btn-primary(type='submit') 호스팅등록 

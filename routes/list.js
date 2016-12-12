@@ -1,4 +1,5 @@
 var express = require('express'),
+    Host = require('../models/Host'),
     User = require('../models/User');
 var router = express.Router();
 
@@ -30,11 +31,11 @@ function validateForm(form) {
 
 /* GET users listing. */
 router.get('/', needAuth, function(req, res, next) {
-  User.find({}, function(err, users) {
+  Host.find({}, function(err, hosts) {
     if (err) {
       return next(err);
     }
-    res.render('users/index', {users: users});
+    res.render('hosts/index', {hosts: hosts});
   });
 });
 
@@ -114,7 +115,7 @@ router.post('/', function(req, res, next) {
     return res.redirect('back');
   }
   // req.body로 부터 얻은 지역, 인원수 등의 정보를 가지고 검색한 결과 리스트를 보여준다.
-  return res.redirect('list');
+  return res.redirect('hosts/index');
 });
 
 
