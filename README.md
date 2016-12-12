@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # App4: Ajax와 REST API
 
 
@@ -14,3 +15,7 @@
 - 사용자가 done을 누르면 변경하고 내용을 PUT으로 전송하고 다시 rendering
 - 사용자가 delete버튼을 누르면 내용을 DELETE로 해당 Dom node 삭제
 - side bar의 선택이 바뀌면 다시 rendering
+=======
+# airbnb_like
+myong-ji unv, web programming, project
+>>>>>>> 3364ad233055018d80d2fc9e1a7d3800f705a1a8
