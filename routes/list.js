@@ -100,7 +100,7 @@ router.get('/:id', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    res.render('hosts/show', {host: host, visitor: req.session.user});
+    res.render('hosts/show', {host: host, visitor: req.session.user.name});
   });
 });
 
