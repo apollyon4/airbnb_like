@@ -14,12 +14,11 @@ block content
       tbody
         each host in hosts
           tr
-            td
-              a(href='/hosts/#{host._id}')= host.title
+            td= host.title
             td= host.simpleInfo
             td= host.cost
             td
               a.btn.btn-xs.btn-default(href='/hosts/#{host._id}/reserv') 예약
               | 
-              a.btn.btn-xs.btn-default(href='/hosts/#{host._id}?_method=DELETE') 정보
+              a.btn.btn-xs.btn-default(href='/hosts/#{host._id}') 정보
     a.btn.btn-primary(href='/hosts/new') 호스팅하기

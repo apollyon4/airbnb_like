@@ -14,12 +14,16 @@ block content
       li 편의시설: #{host.useful}
       li 이용규칙: #{host.rule}
     ul
+     if(host._id==visitor)
       li 예약 정보
       //- 각 예약 신청에 대한 정보를 다 표시해준다.
     hr
     p
       a.btn.btn-default(href='/users/') 목록
       | 
-      a.btn.btn-default(href='/users/#{host._id}/edit') 수정
-      | 
-      a.btn.btn-default(href='/users/#{host._id}?_method=DELETE') 삭제
+      if(host._id==visitor)
+        a.btn.btn-default(href='/users/#{host._id}/edit') 수정
+        | 
+        a.btn.btn-default(href='/users/#{host._id}?_method=DELETE') 삭제
+      else
+      a.btn.btn-default(href='/users/#{host._id}/edit') 예약 

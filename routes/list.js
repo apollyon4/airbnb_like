@@ -95,6 +95,15 @@ router.get('/:id/reserv', function(req, res, next) {
   });
 });
 
+router.get('/:id', function(req, res, next) {
+  Host.findById(req.params.id, function(err, host) {
+    if (err) {
+      return next(err);
+    }
+    res.render('hosts/show', {host: host, visitor: req.session.user});
+  });
+});
+
 router.put('/:id', function(req, res, next) {
   var err = validateForm(req.body);
   if (err) {
