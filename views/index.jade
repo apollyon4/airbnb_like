@@ -10,9 +10,6 @@ block content
     .col-xs-6.col-md-6.col-sm-6
       form#form-task.form-inline(action='/hosts', method='POST', class='todos') 가고 싶은곳은:
         input(type='text', id='area', name='area', placeholder='지역을 입력하세요')
-        br
-        | 몇 명이:
-        input(type='text', id='people', name='people', placeholder='1')
         .actions
             button#post-task.btn.btn-primary.btn-lg.btn-block(type='submit') 검색
     .col-xs-4.col-md-4.col-sm-4

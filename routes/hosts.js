@@ -64,11 +64,16 @@ router.get('/:id', function(req, res, next) {
       return next(err);
     }
 
-    Reserv.find({}, function(err, reservs) {
+    Reserv.find({_id:{$in:host.hostList}}, function(err, reservs) {
       if (err) {
         return next(err);
       }
-      res.render('hosts/show', {user: req.session.user, host: host, reservs: reservs});
+      User.findById(req.session.user, function(err, user){
+        if (err){
+          return next(err);
+        }
+        res.render('hosts/show', {user: user.name, host: host, reservs: reservs});
+      });
     });
   });
 });
@@ -123,7 +128,9 @@ router.get('/:id/no', function(req, res, next){
 router.post('/', needAuth, function(req, res, next) {
   var area = req.body.area.trim();
   // 조건에 맞는 목록을 찾아서 전달해줘야 한다.
-  Host.find({}, function(err, hosts) {
+
+  Host.find( { city: { $regex: area, $options:"i"} },
+    function(err, hosts) {
     if (err) {
       return next(err);
     }
