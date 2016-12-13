@@ -25,7 +25,21 @@ block content
             td 2명
             td
               a.btn.btn-xs.btn-default(href='/hosts/#{host._id}/show') 관리
-      //- li 내 예약 신청:
+    table.table.table-striped.table-bordered 내 예약 신청:
+      thead
+        tr
+          th 제목
+          th 호스트
+          th 예약상태
+          th
+      tbody
+        each host in hosts
+          tr
+            td= host.title
+            td= host.hostName
+            td 수락됨 또는 취소됨
+            //- td
+            //-   a.btn.btn-xs.btn-default(href='/hosts/#{host._id}/show') 관리
         
     hr
     p

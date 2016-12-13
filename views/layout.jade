@@ -1,5 +1,5 @@
 doctype html
-html(lang='ko')
+html(lang='en')
   head
     block title
       title Airbnb_like
@@ -8,7 +8,12 @@ html(lang='ko')
     link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/bower_components/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script(type='text/javascript', src='/bower_components/jquery/dist/jquery.js')
+    
+    link(type='text/css', rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
+    script(type='text/javascript', src="https://code.jquery.com/jquery-1.12.4.js")
+    script(type='text/javascript', src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
+    
+    //- script(type='text/javascript', src='/bower_components/jquery/dist/jquery.js')
     script(type='text/javascript', src='/bower_components/bootstrap/dist/js/bootstrap.js')
   body
     block top-nav
