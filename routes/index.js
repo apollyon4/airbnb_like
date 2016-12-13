@@ -1,5 +1,5 @@
 var express = require('express'),
-    list = require('./list'),
+    hosts = require('./hosts'),
     User = require('../models/User');
 var router = express.Router();
 
@@ -35,6 +35,6 @@ router.get('/signout', function(req, res, next) {
   req.flash('success', '로그아웃 되었습니다.');
   res.redirect('/');
 });
-router.use('/list', list);
+router.use('/hosts', hosts);
 
 module.exports = router;

@@ -13,7 +13,7 @@ var configAuth = require('./config/auth');
 
 var routes = require('./routes/index'),
     users = require('./routes/users'),
-    list = require('./routes/list');
+    hosts = require('./routes/hosts');
 
 var app = express();
 
@@ -51,7 +51,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function(req, res, next) {
-  res.locals.currentUser = req.user;
+  res.locals.currentUser = req.session.user;
   res.locals.flashMessages = req.flash();
   next();
 });
@@ -60,7 +60,7 @@ configAuth(passport);
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/hosts', list);
+app.use('/hosts', hosts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

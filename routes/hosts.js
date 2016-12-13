@@ -53,7 +53,8 @@ router.get('/:id', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    res.render('hosts/show', {host: host, visitor: req.session.user.name});
+
+    res.render('hosts/show', {user: req.session.user, host: host});
   });
 });
 
@@ -71,7 +72,7 @@ router.get('/:id/show', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    res.render('hosts/show', {host: host});
+    res.render('hosts/show', {user: req.session.user, host: host});
   });
 });
 
