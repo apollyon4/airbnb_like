@@ -3,13 +3,13 @@ extends ../layout
 block content
   .container
     h1.page-header 예약 요청
-    form(action='/hosts/reserv', method='POST')
+    form(action='/hosts/#{host._id}/reserv', method='POST')
       .form-group
-        label(for='check-in') Check-In
-        input.form-control(type="text", class="datepicker", name='check-in', placeholder='Check-In')
+        label(for='checkin') Check-In
+        input.form-control(type="text", class="datepicker", name='checkin', placeholder='CheckIn')
       .form-group
-        label(for='check-out') Check-Out
-        input.form-control(type="text", class='datepicker', name='check-out', placeholder='Check-In')
+        label(for='checkout') Check-Out
+        input.form-control(type="text", class='datepicker', name='checkout', placeholder='CheckIn')
       .form-group
         label(for='people') 숙박 인원
         input.form-control(id='people', name='people', placeholder='1명')
@@ -22,4 +22,3 @@ block content
     $(function() {
       $(".datepicker").datepicker();
     });
- 

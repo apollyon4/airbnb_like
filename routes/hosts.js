@@ -1,6 +1,7 @@
 var express = require('express'),
     Host = require('../models/Host'),
-    User = require('../models/User');
+    User = require('../models/User'),
+    Reserv = require('../models/Reserv');
 var router = express.Router();
 
 function needAuth(req, res, next) {
@@ -128,8 +129,28 @@ router.post('/new', function(req, res, next) {
   });
 });
 
-router.post('/reserv', function(req, res, next) {
+router.post('/:id/reserv', function(req, res, next) {
+  var reserv = new Reserv({
+    checkin: req.body.checkin,
+    checkout: req.body.checkout,
+    people: req.body.people,
+    isReserv: false,
+  });
 
+  reserv.save(function(err) {
+    if (err) {
+      return next(err);
+    } else {
+      User.update({_id: req.session.user}, {$push: { reservList : reserv._id }}, function(err, user) {
+        console.log(user);
+      });
+      Host.update({_id: req.params.id}, {$push: { reservList : reserv._id }}, function(err, host) {
+        console.log(host);
+      });
+    }
+    req.flash('success', '예약이 완료되었습니다.');
+    res.redirect('/hosts');
+  })
 });
 
 router.put('/:id', function(req, res, next) {
