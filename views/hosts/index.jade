@@ -8,6 +8,7 @@ block content
       thead
         tr
           th 제목
+          th 호스트
           th 도시
           th 요금
           th
@@ -15,6 +16,7 @@ block content
         each host in hosts
           tr
             td= host.title
+            td= host.hostName
             td= host.simpleInfo
             td= host.cost
             td

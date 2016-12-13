@@ -2,23 +2,30 @@ extends ../layout
 
 block content
   .container
-    h1.page-header 회원정보 수정
-    form(action='/users/#{user._id}?_method=PUT', method='POST')
+    h1.page-header 호스팅 정보 수정
+    form(action='/hosts/#{host._id}?_method=PUT', method='POST')
+      label= host.hostName
+      .form-group      
+        label(for='title') 제목
+        input.form-control(type='text', id='title', name='title', placeholder='제목', value=host.title)
       .form-group
-        label(for='name') Name
-        input.form-control(type='text', id='name', name='name', placeholder='Your name', value=user.name)
+        label(for='simpleInfo') 설명
+        input.form-control(type='text', id='simpleInfo', name='simpleInfo', placeholder='설명', value=host.simpleInfo)
       .form-group
-        label(for='email') Email address
-        input.form-control(type='email', id='email', name='email', placeholder='Email', value=user.email)
+        label(for='city') 도시
+        input.form-control(type='text', id='city', name='city', placeholder='도시', value=host.city)
       .form-group
-        label(for='current_password') 현재 Password
-        input.form-control(type='password', id='current_password', name='current_password', placeholder='현재 Password')
+        label(for='address') 주소
+        input.form-control(type='text', id='address', name='address', placeholder='주소', value=host.address)
       .form-group
-        label(for='password') 변경할 Password
-        input.form-control(type='password', id='password', name='password', placeholder='변경할 Password')
+        label(for='cost') 요금
+        input.form-control(type='text', id='cost', name='cost', placeholder='요금', value=host.cost)
       .form-group
-        label(for='password_confirmation') Password 확인
-        input.form-control(type='password', id='password_confirmation', name='password_confirmation', placeholder='변경할 Password 확인')
+        label(for='useful') 편의시설
+        input.form-control(type='text', id='useful', name='useful', placeholder='편의시설', value=host.useful)
+      .form-group
+        label(for='rule') 이용규칙
+        input.form-control(type='text', id='rule', name='rule', placeholder='이용규칙', value=host.rule)  
       div.form-actions
         a.btn.btn-default(href='javascript:window.history.back();') 뒤로 
         | 

@@ -34,7 +34,7 @@ function validateForm(form) {
   return null;
 }
 
-/* GET users listing. */
+/* GET hosts listing. */
 router.get('/new', function(req, res, next) {
   res.render('hosts/new', {messages: req.flash()});
 });
@@ -122,8 +122,6 @@ router.post('/reserv', function(req, res, next) {
 
 });
 
-
-
 router.put('/:id', function(req, res, next) {
   var err = validateForm(req.body);
   if (err) {
@@ -131,32 +129,29 @@ router.put('/:id', function(req, res, next) {
     return res.redirect('back');
   }
 
-  User.findById({_id: req.params.id}, function(err, user) {
+  Host.findById({_id: req.params.id}, function(err, host) {
     if (err) {
       return next(err);
     }
-    if (!user) {
-      req.flash('danger', '존재하지 않는 사용자입니다.');
+    if (!host) {
+      req.flash('danger', '잘못된 접근입니다.');
       return res.redirect('back');
     }
 
-    if (user.password !== req.body.current_password) {
-      req.flash('danger', '현재 비밀번호가 일치하지 않습니다.');
-      return res.redirect('back');
-    }
+    host.title = req.body.title;
+    host.simpleInfo = req.body.simpleInfo;
+    host.city = req.body.city;
+    host.address = req.body.address;
+    host.cost = req.body.cost;
+    host.useful = req.body.useful;
+    host.rule = req.body.rule;
 
-    user.name = req.body.name;
-    user.email = req.body.email;
-    if (req.body.password) {
-      user.password = req.body.password;
-    }
-
-    user.save(function(err) {
+    host.save(function(err) {
       if (err) {
         return next(err);
       }
-      req.flash('success', '사용자 정보가 변경되었습니다.');
-      res.redirect('/users');
+      req.flash('success', '호스팅 정보가 변경되었습니다.');
+      res.redirect('/');
     });
   });
 });
