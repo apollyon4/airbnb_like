@@ -15,14 +15,12 @@ block content
         tr
           th 제목
           th 요약
-          th 예약
           th
       tbody
         each host in hosts
           tr
             td= host.title
             td= host.simpleInfo
-            td 2명
             td
               a.btn.btn-xs.btn-default(href='/hosts/#{host._id}/show') 관리
     table.table.table-striped.table-bordered 내 예약 신청:
@@ -34,7 +32,6 @@ block content
           th 체크아웃
           th 인원
           th 예약상태
-          th
       tbody
         each reserv in reservs
           tr

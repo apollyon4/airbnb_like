@@ -64,7 +64,12 @@ router.get('/:id', function(req, res, next) {
       return next(err);
     }
 
-    res.render('hosts/show', {user: req.session.user, host: host});
+    Reserv.find({}, function(err, reservs) {
+      if (err) {
+        return next(err);
+      }
+      res.render('hosts/show', {user: req.session.user, host: host, reservs: reservs});
+    });
   });
 });
 
@@ -84,6 +89,35 @@ router.get('/:id/show', function(req, res, next) {
     }
     res.render('hosts/show', {user: req.session.user, host: host});
   });
+});
+
+router.get('/:id/ok', function(req, res, next){
+  Reserv.findById(req.params.id, function(err, reserv){
+    if (err) {
+      return next(err);
+    }
+    reserv.isReserv = "승인됨";
+    reserv.save(function(err) {
+      if (err) {
+        return next(err);
+      }
+    });
+  });
+  res.redirect('back');
+});
+router.get('/:id/no', function(req, res, next){
+  Reserv.findById(req.params.id, function(err, reserv){
+    if (err) {
+      return next(err);
+    }
+    reserv.isReserv = "거절됨";
+    reserv.save(function(err) {
+      if (err) {
+        return next(err);
+      }
+    });
+  });
+  res.redirect('back');
 });
 
 router.post('/', needAuth, function(req, res, next) {
@@ -134,29 +168,33 @@ router.post('/:id/reserv', function(req, res, next) {
     checkIn: req.body.checkin,
     checkOut: req.body.checkout,
     people: req.body.people,
-    isReserv: false,
+    isReserv: "결정안됨",
   });
   Host.findById(req.params.id, function(err, host) {
     if (err) {
       return next(err);
     }
-    reserv.title= host.title;
-    reserv.hostName= host.hostName;
 
-    reserv.save(function(err) {
+    User.findById(req.session.user, function(err, user) {
       if (err) {
         return next(err);
-      } else {
-        User.update({_id: req.session.user}, {$push: { reservList : reserv._id }}, function(err, user) {
-          console.log(user);
-        });
-        Host.update({_id: req.params.id}, {$push: { reservList : reserv._id }}, function(err, host) {
-          console.log(host);
-        });
-        req.flash('success', '예약이 완료되었습니다.');
-        res.redirect('/hosts');
       }
-    })
+      reserv.title= host.title;
+      reserv.hostName= host.hostName;
+      reserv.askUser= user.name;
+      reserv.save(function(err) {
+        if (err) {
+          return next(err);
+        } else {
+          User.update({_id: req.session.user}, {$push: { reservList : reserv._id }}, function(err, user) {
+          });
+          Host.update({_id: req.params.id}, {$push: { reservList : reserv._id }}, function(err, host) {
+          });
+          req.flash('success', '예약이 완료되었습니다.');
+          res.redirect('/hosts');
+        }
+      });
+    });
   });
 });
 

@@ -13,6 +13,28 @@ block content
       li 가격: #{host.cost}
       li 편의시설: #{host.useful}
       li 이용규칙: #{host.rule}
+    ul
+      if(host.hostName==user.name)
+        table.table.table-striped.table-bordered 예약 신청:
+          thead
+            tr
+              th 신청자
+              th 체크인
+              th 체크아웃
+              th 인원
+              th 수락여부
+              th
+          tbody
+            each reserv in reservs
+              tr
+                td= reserv.askUser
+                td= reserv.checkIn
+                td= reserv.checkOut
+                td= reserv.people
+                td= reserv.isReserv
+                td
+                  a.btn.btn-xs.btn-default(href='/hosts/#{reserv._id}/ok') 승인
+                  a.btn.btn-xs.btn-default(href='/hosts/#{reserv._id}/no') 거부
     hr
     p
       a.btn.btn-default(href='/hosts') 목록

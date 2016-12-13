@@ -5,10 +5,11 @@ var mongoose = require('mongoose'),
 var reserv = new Schema({
   title: {type: String},
   hostName: {type: String},
+  askUser: {type: String},
   checkIn: {type: String},
   checkOut: {type: String},
   people: {type: String},
-  isReserv: {type: Boolean},
+  isReserv: {type: String},
 });
 
 var Reserv = mongoose.model('Reserv', reserv);
