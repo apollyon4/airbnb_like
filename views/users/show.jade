@@ -11,7 +11,7 @@ block content
         li Facebook 
           //img.img-circle(src='#{user.facebook.photo}')
       li 내 호스팅:
-        each host in user.hostList
+        each host in hosts
           a(href='/hosts/#{host._id}/show') #{host.title}
     hr
     p

@@ -37,7 +37,7 @@ function validateForm(form) {
 /* GET users listing. */
 router.post('/', needAuth, function(req, res, next) {
   var area = req.body.area.trim();
-  // 조건에 맞는 목록을 찾아서 전달해준다.
+  // 조건에 맞는 목록을 찾아서 전달해줘야 한다.
   Host.find({}, function(err, hosts) {
     if (err) {
       return next(err);
@@ -142,12 +142,12 @@ router.delete('/:id', function(req, res, next) {
   });
 });
 
-router.get('/:id', function(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
+router.get('/:id/show', function(req, res, next) {
+  Host.findById(req.params.id, function(err, host) {
     if (err) {
       return next(err);
     }
-    res.render('users/show', {user: user});
+    res.render('hosts/show', {host: host});
   });
 });
 

@@ -1,5 +1,6 @@
 var express = require('express'),
-    User = require('../models/User');
+    User = require('../models/User'),
+    Host = require('../models/Host');
 var router = express.Router();
 
 function needAuth(req, res, next) {
@@ -115,8 +116,10 @@ router.get('/:id', function(req, res, next) {
     if (err) {
       return next(err);
     }
-    console.log(user.hostList[0]);
-    res.render('users/show', {user: user});
+    // 모든 hostList의 정보 배열을 넘겨준다.
+    Host.find({_id:{$in:user.hostList}}, function(err, hosts){
+      res.render('users/show', {user: user, hosts: hosts});
+    });
   });
 });
 

@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  .container
+    h1.page-header 호스팅 정보
+          
+    ul
+      li 제목: #{host.title}
+      li 호스트: #{host.hostName}
+      li 간단한 설명: #{host.simpleInfo}
+      li 도시: #{host.city}
+      li 주소: #{host.address}
+      li 가격: #{host.cost}
+      li 편의시설: #{host.useful}
+      li 이용규칙: #{host.rule}
+    ul
+      li 예약 정보
+      //- 각 예약 신청에 대한 정보를 다 표시해준다.
+    hr
+    p
+      a.btn.btn-default(href='/users/') 목록
+      | 
+      a.btn.btn-default(href='/users/#{host._id}/edit') 수정
+      | 
+      a.btn.btn-default(href='/users/#{host._id}?_method=DELETE') 삭제
