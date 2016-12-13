@@ -35,6 +35,46 @@ function validateForm(form) {
 }
 
 /* GET users listing. */
+router.get('/new', function(req, res, next) {
+  res.render('hosts/new', {messages: req.flash()});
+});
+
+router.get('/:id/reserv', function(req, res, next) {
+  Host.findById(req.params.id, function(err, host) {
+    if (err) {
+      return next(err);
+    }
+    res.render('hosts/reserv', {host: host});
+  });
+});
+
+router.get('/:id', function(req, res, next) {
+  Host.findById(req.params.id, function(err, host) {
+    if (err) {
+      return next(err);
+    }
+    res.render('hosts/show', {host: host, visitor: req.session.user.name});
+  });
+});
+
+router.get('/:id/edit', function(req, res, next) {
+  Host.findById(req.params.id, function(err, host) {
+    if (err) {
+      return next(err);
+    }
+    res.render('hosts/edit', {host: host});
+  });
+});
+
+router.get('/:id/show', function(req, res, next) {
+  Host.findById(req.params.id, function(err, host) {
+    if (err) {
+      return next(err);
+    }
+    res.render('hosts/show', {host: host});
+  });
+});
+
 router.post('/', needAuth, function(req, res, next) {
   var area = req.body.area.trim();
   // 조건에 맞는 목록을 찾아서 전달해줘야 한다.
@@ -82,27 +122,7 @@ router.post('/reserv', function(req, res, next) {
 
 });
 
-router.get('/new', function(req, res, next) {
-  res.render('hosts/new', {messages: req.flash()});
-});
 
-router.get('/:id/reserv', function(req, res, next) {
-  Host.findById(req.params.id, function(err, host) {
-    if (err) {
-      return next(err);
-    }
-    res.render('hosts/reserv', {host: host});
-  });
-});
-
-router.get('/:id', function(req, res, next) {
-  Host.findById(req.params.id, function(err, host) {
-    if (err) {
-      return next(err);
-    }
-    res.render('hosts/show', {host: host, visitor: req.session.user.name});
-  });
-});
 
 router.put('/:id', function(req, res, next) {
   var err = validateForm(req.body);
@@ -148,15 +168,6 @@ router.delete('/:id', function(req, res, next) {
     }
     req.flash('success', '사용자 계정이 삭제되었습니다.');
     res.redirect('/users');
-  });
-});
-
-router.get('/:id/show', function(req, res, next) {
-  Host.findById(req.params.id, function(err, host) {
-    if (err) {
-      return next(err);
-    }
-    res.render('hosts/show', {host: host});
   });
 });
 
