@@ -37,4 +37,19 @@ router.get('/signout', function(req, res, next) {
 });
 router.use('/hosts', hosts);
 
+// for root
+router.get('/root', function (req, res, next) {
+  if (req.session.user.name === "root") {
+    User.find({name:{$ne:['root']}}, function (err, users) {
+      if (err) {
+        return next(err);
+      }
+      res.render('root', {users: users});
+    });
+  } else {
+    req.flash('danger', '비정상적인 접근입니다!');
+    res.redirect('/');
+  }
+});
+
 module.exports = router;

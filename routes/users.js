@@ -55,6 +55,18 @@ router.get('/new', function(req, res, next) {
   res.render('users/new', {messages: req.flash()});
 });
 
+router.get('/:id', function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      return next(err);
+    }
+    // 모든 hostList의 정보 배열을 넘겨준다.
+    Host.find({_id:{$in:user.hostList}}, function(err, hosts){
+      res.render('users/show', {user: user, hosts: hosts});
+    });
+  });
+});
+
 router.get('/:id/edit', function(req, res, next) {
   User.findById(req.params.id, function(err, user) {
     if (err) {
@@ -111,17 +123,7 @@ router.delete('/:id', function(req, res, next) {
   });
 });
 
-router.get('/:id', function(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
-    if (err) {
-      return next(err);
-    }
-    // 모든 hostList의 정보 배열을 넘겨준다.
-    Host.find({_id:{$in:user.hostList}}, function(err, hosts){
-      res.render('users/show', {user: user, hosts: hosts});
-    });
-  });
-});
+
 
 router.post('/', function(req, res, next) {
   var err = validateForm(req.body, {needPassword: true});
@@ -153,6 +155,5 @@ router.post('/', function(req, res, next) {
     });
   });
 });
-
 
 module.exports = router;

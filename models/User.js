@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     ObjectId = Schema.Types.ObjectId;
 
 var schema = new Schema({
-  name: {type: String, required: true, trim: true},
+  name: {type: String, required: true, trim: true, unique: true},
   email: {type: String, required: true, index: true, unique: true, trim: true},
   password: {type: String},
   createdAt: {type: Date, default: Date.now},
