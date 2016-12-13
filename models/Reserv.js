@@ -3,8 +3,10 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var reserv = new Schema({
-  checkIn: {type: Date},
-  checkOut: {type: Date},
+  title: {type: String},
+  hostName: {type: String},
+  checkIn: {type: String},
+  checkOut: {type: String},
   people: {type: String},
   isReserv: {type: Boolean},
 });

@@ -131,26 +131,33 @@ router.post('/new', function(req, res, next) {
 
 router.post('/:id/reserv', function(req, res, next) {
   var reserv = new Reserv({
-    checkin: req.body.checkin,
-    checkout: req.body.checkout,
+    checkIn: req.body.checkin,
+    checkOut: req.body.checkout,
     people: req.body.people,
     isReserv: false,
   });
-
-  reserv.save(function(err) {
+  Host.findById(req.params.id, function(err, host) {
     if (err) {
       return next(err);
-    } else {
-      User.update({_id: req.session.user}, {$push: { reservList : reserv._id }}, function(err, user) {
-        console.log(user);
-      });
-      Host.update({_id: req.params.id}, {$push: { reservList : reserv._id }}, function(err, host) {
-        console.log(host);
-      });
     }
-    req.flash('success', '예약이 완료되었습니다.');
-    res.redirect('/hosts');
-  })
+    reserv.title= host.title;
+    reserv.hostName= host.hostName;
+
+    reserv.save(function(err) {
+      if (err) {
+        return next(err);
+      } else {
+        User.update({_id: req.session.user}, {$push: { reservList : reserv._id }}, function(err, user) {
+          console.log(user);
+        });
+        Host.update({_id: req.params.id}, {$push: { reservList : reserv._id }}, function(err, host) {
+          console.log(host);
+        });
+        req.flash('success', '예약이 완료되었습니다.');
+        res.redirect('/hosts');
+      }
+    })
+  });
 });
 
 router.put('/:id', function(req, res, next) {

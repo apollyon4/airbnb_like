@@ -30,17 +30,20 @@ block content
         tr
           th 제목
           th 호스트
+          th 체크인
+          th 체크아웃
+          th 인원
           th 예약상태
           th
       tbody
-        each host in hosts
+        each reserv in reservs
           tr
-            td= host.title
-            td= host.hostName
-            td 수락됨 또는 취소됨
-            //- td
-            //-   a.btn.btn-xs.btn-default(href='/hosts/#{host._id}/show') 관리
-        
+            td= reserv.title
+            td= reserv.hostName
+            td= reserv.checkIn
+            td= reserv.checkOut
+            td= reserv.people
+            td= reserv.isReserv
     hr
     p
       a.btn.btn-default(href='/users/#{user._id}/edit') 수정
