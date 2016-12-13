@@ -115,6 +115,7 @@ router.get('/:id', function(req, res, next) {
     if (err) {
       return next(err);
     }
+    console.log(user.hostList[0]);
     res.render('users/show', {user: user});
   });
 });

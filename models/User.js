@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     bcrypt = require('bcryptjs'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
 
 var schema = new Schema({
   name: {type: String, required: true, trim: true},
@@ -8,11 +9,17 @@ var schema = new Schema({
   password: {type: String},
   createdAt: {type: Date, default: Date.now},
   facebook: {id: String, token: String, photo: String},
-  hostList: {type: Array},
-  reservList: {type: Array}
+  hostList: [{type:ObjectId, ref: 'Host'}],
+  reservList: [{type:ObjectId, ref: 'Host'}],
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}
+});
+
+var someReserv = new Schema({
+  checkIn: {type: Date},
+  checkOut: {type: Date},
+  people: {type: String}
 });
 
 schema.methods.generateHash = function(password) {

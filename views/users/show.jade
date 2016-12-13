@@ -9,7 +9,10 @@ block content
       li 이메일: #{user.email}
       if user.facebook
         li Facebook 
-          img.img-circle(src='#{user.facebook.photo}')
+          //img.img-circle(src='#{user.facebook.photo}')
+      li 내 호스팅:
+        each host in user.hostList
+          a(href='/hosts/#{host._id}/show') #{host.title}
     hr
     p
       a.btn.btn-default(href='/users/') 목록

@@ -67,6 +67,11 @@ router.post('/new', function(req, res, next) {
     if (err) {
       return next(err);
     } else {
+      User.update({_id: req.session.user},
+         {$push: { hostList : newHosting._id }}, function(err, user) {
+           console.log(user);
+      });
+
       req.flash('success', '호스팅이 완료되었습니다.');
       res.redirect('/');
     }
@@ -74,7 +79,7 @@ router.post('/new', function(req, res, next) {
 });
 
 router.post('/reserv', function(req, res, next) {
-  
+
 });
 
 router.get('/new', function(req, res, next) {
