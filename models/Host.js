@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    ObjectId = Schema.Types.ObjectId;
 
 var schema = new Schema({
   title: {type: String, required: true, trim: true},
@@ -10,6 +11,8 @@ var schema = new Schema({
   cost: {type: String, required: true},
   useful: {type: String},
   rule: {type: String},
+
+  reservList: [{type:ObjectId, ref: 'Reserv'}],
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}

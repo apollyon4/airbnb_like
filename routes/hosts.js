@@ -35,6 +35,15 @@ function validateForm(form) {
 }
 
 /* GET hosts listing. */
+router.get('/', function(req, res, next) {
+  Host.find({}, function(err, hosts) {
+    if (err) {
+      return next(err);
+    }
+    res.render('hosts/index', {hosts: hosts});
+  });
+});
+
 router.get('/new', function(req, res, next) {
   res.render('hosts/new', {messages: req.flash()});
 });

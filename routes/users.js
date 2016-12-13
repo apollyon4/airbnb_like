@@ -65,7 +65,7 @@ router.get('/:id/edit', function(req, res, next) {
 });
 
 router.put('/:id', function(req, res, next) {
-  var err = validateForm(req.body);
+  var err = validateForm(req.body, {needPassword: true});
   if (err) {
     req.flash('danger', err);
     return res.redirect('back');
@@ -148,7 +148,7 @@ router.post('/', function(req, res, next) {
         return next(err);
       } else {
         req.flash('success', '가입이 완료되었습니다. 로그인 해주세요.');
-        res.redirect('/');
+        res.redirect('/signin');
       }
     });
   });

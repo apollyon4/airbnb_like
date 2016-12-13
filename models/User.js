@@ -9,17 +9,12 @@ var schema = new Schema({
   password: {type: String},
   createdAt: {type: Date, default: Date.now},
   facebook: {id: String, token: String, photo: String},
+
   hostList: [{type:ObjectId, ref: 'Host'}],
-  reservList: [{type:ObjectId, ref: 'Host'}],
+  reservList: [{type:ObjectId, ref: 'Reserv'}],
 }, {
   toJSON: { virtuals: true},
   toObject: {virtuals: true}
-});
-
-var someReserv = new Schema({
-  checkIn: {type: Date},
-  checkOut: {type: Date},
-  people: {type: String}
 });
 
 schema.methods.generateHash = function(password) {
